@@ -12,12 +12,13 @@ import {
 
 import Backend from "../layout/backend";
 import Blank from "../layout/blank";
+import Auth from "../layout/auth"
 import NotFound from "../views/others/not-found";
 import Unauthorize from "../views/others/unauthorize";
 import session from "../session";
 
 
-const Layouts = { Backend,Blank };
+const Layouts = { Backend,Blank,Auth};
 
 // verify user connecting status 
 const RequireAuth = ({ children }) => {
