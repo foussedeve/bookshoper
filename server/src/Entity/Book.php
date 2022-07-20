@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
@@ -14,28 +15,50 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @JMS\Groups({"book_register"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @JMS\Groups({"book_register"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @JMS\Groups({"book_register"})
      */
     private $author;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @JMS\Groups({"book_register"})
      */
     private $cover;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @JMS\Groups({"book_register"})
      */
     private $pages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Bookshop::class, inversedBy="books", cascade={"persist"})
+     */
+    private $bookshop;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"book_register"})
+     */
+    private $summary;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Groups({"book_register"})
+     */
+    private $year;
 
     public function getId(): ?int
     {
@@ -86,6 +109,42 @@ class Book
     public function setPages(string $pages): self
     {
         $this->pages = $pages;
+
+        return $this;
+    }
+
+    public function getBookshop(): ?Bookshop
+    {
+        return $this->bookshop;
+    }
+
+    public function setBookshop(?Bookshop $bookshop): self
+    {
+        $this->bookshop = $bookshop;
+
+        return $this;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary): self
+    {
+        $this->summary = $summary;
+
+        return $this;
+    }
+
+    public function getYear(): ?string
+    {
+        return $this->year;
+    }
+
+    public function setYear(?string $year): self
+    {
+        $this->year = $year;
 
         return $this;
     }
