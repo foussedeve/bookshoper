@@ -1,0 +1,8 @@
+sensio_framework_extra:
+    router:
+        annotations: false
+
+    #configuration ajouter
+#    view: { annotations: false }
+
+#    request: { converters: true }
