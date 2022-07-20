@@ -1,24 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense, } from 'react'
+import SimpleLoader from './components/loader/simpleLoader';
+import { AuthProvider } from './utility/context/authContext';
 
 function App() {
+  const LazyRoute = lazy(() => import('./router/configRoutes'))
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Suspense fallback={<SimpleLoader />}>
+        <AuthProvider>
+          <LazyRoute />
+        </AuthProvider>
+      </Suspense>
+    </>
   );
 }
 
