@@ -23,7 +23,7 @@ const Layouts = { Backend,Blank,Auth};
 // verify user connecting status 
 const RequireAuth = ({ children }) => {
   let location = useLocation();
-  if (!session.get.data) {
+  if (!session.get("USER_SESSION").data) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
   return children;

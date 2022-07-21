@@ -1,12 +1,15 @@
-import React from "react";
-import {Link}from "react-router-dom"
+import React, { useState } from "react";
+import {Link,Navigate}from "react-router-dom"
 import session from "../../../session";
-import fakeApi from "../../../services/fakeApi";
 import RegisterFormValidationSchema from "../../../utility/form/RegisterFormValidationSchema";
 import {useForm} from "react-hook-form"
 import {yupResolver} from "@hookform/resolvers/yup"
+import { post_service } from "../../../services/app.service";
 
 const Register = () => {
+
+  const [errorMessage,setErrorMessage]=useState()
+  const [succesMessage,setSuccesMessage]=useState()
   // react-hook-form
   const {register,handleSubmit, formState:{errors,isValid,isSubmitting},setError,reset}=useForm({
     mode:"onBlur",
@@ -14,13 +17,53 @@ const Register = () => {
 })
 
 const onSubmit=async (data)=>{
-  console.log(data)
-  reset()
-}
+  setSuccesMessage(null);
+  setErrorMessage(null);
+  
+  let formData={lastname:data.lastname,firstname:data.firstname,email:data.email,password: data.password}
+  try {
+    let response= await post_service({url:"/users",data:formData})
+    const {status}=response;
+    // reponse traitement
+    if(status){
+      const {data:{message}}=response;
+setSuccesMessage(message)
+    }
+    else{
+ const {data,code}=response
+ console.log(data)
+ switch (code) {
+  case 500:
+    setErrorMessage("Le server est indisponible,Veuillez contacter l'administrateur.")
+    break;
+  case 400:
+    setErrorMessage(data?.message)
+    break
+  case 404:
+    setErrorMessage("Le server est introuvable.")
+    break
+  default:
+    break;
+ }
 
+
+    }
+  } catch (error) {
+    
+  }
+}
+if (session.get("USER_SESSION").data) {
+  return <Navigate to="/dashboard"  />;
+}
 
   return (
     <>
+     {
+        errorMessage && <small className="mt-1 mb-3 text-center bg-light p-2 text-danger d-block">{errorMessage}</small>
+      }
+      {
+        succesMessage && <small className="mt-1 mb-3 text-center bg-light p-2 text-success d-block">{succesMessage}</small>
+      }
       <h3 className="text-left mb-3">Créer un compte</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
