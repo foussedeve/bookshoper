@@ -5,11 +5,12 @@ import session from "../../../session";
 import BookFormValidationSchema from "../../../utility/form/BookFormValidationSchema";
 import { post_service } from "../../../services/app.service";
 import "./index.css";
+import Loading from "../../../components/loader/loading";
 
 const AddBook = () => {
     const [errorMessage, setErrorMessage] = useState()
     const [succesMessage, setSuccesMessage] = useState()
-    const { register, handleSubmit, formState: { errors, isValid, isSubmitting },reset } = useForm({
+    const { register, handleSubmit, formState: { errors, isSubmitting },reset } = useForm({
         mode: "onBlur",
         resolver: yupResolver(BookFormValidationSchema)
     })
@@ -52,6 +53,10 @@ const AddBook = () => {
 
         }
     }
+     if(isSubmitting){
+        return <Loading/>
+     }
+
     return (
 
         <div className="row">
@@ -148,7 +153,11 @@ const AddBook = () => {
                                     errors.cover && <small className="mt-2 text-danger d-block">{errors?.cover?.message}</small>
                                 }
                             </div>
-                            <button type="submit" className="btn btn-inverse-primary mr-2 mt-2 p-2">Enregistez</button>
+                            <button 
+                            type="submit" 
+                            className="btn btn-inverse-primary mr-2 mt-2 p-2"
+                            disabled={isSubmitting}
+                            >Enregistez</button>
                         </form>
 
                     </div>

@@ -1,6 +1,6 @@
 # Getting Started 
 
-This project use React 18.2.0 and Symfony 5.4
+This project use React 18.2.0, Symfony 5.4 and php 7.4
 
 ## Instuctions to run this app
 

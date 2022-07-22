@@ -5,13 +5,14 @@ import RegisterFormValidationSchema from "../../../utility/form/RegisterFormVali
 import {useForm} from "react-hook-form"
 import {yupResolver} from "@hookform/resolvers/yup"
 import { post_service } from "../../../services/app.service";
+import Loading from "../../../components/loader/loading";
 
 const Register = () => {
 
   const [errorMessage,setErrorMessage]=useState()
   const [succesMessage,setSuccesMessage]=useState()
   // react-hook-form
-  const {register,handleSubmit, formState:{errors,isValid,isSubmitting},setError,reset}=useForm({
+  const {register,handleSubmit, formState:{errors,isSubmitting},reset}=useForm({
     mode:"onBlur",
     resolver:yupResolver(RegisterFormValidationSchema)
 })
@@ -23,11 +24,12 @@ const onSubmit=async (data)=>{
   let formData={lastname:data.lastname,firstname:data.firstname,email:data.email,password: data.password}
   try {
     let response= await post_service({url:"/users",data:formData})
-    const {status}=response;
+    const { status,data } = response;
     // reponse traitement
     if(status){
-      const {data:{message}}=response;
-setSuccesMessage(message)
+      
+setSuccesMessage(data?.message);
+reset()
     }
     else{
  const {data,code}=response
@@ -54,6 +56,9 @@ setSuccesMessage(message)
 }
 if (session.get("USER_SESSION").data) {
   return <Navigate to="/dashboard"  />;
+}
+if(isSubmitting){
+  return <Loading/>
 }
 
   return (
@@ -126,7 +131,7 @@ if (session.get("USER_SESSION").data) {
           <button
            type="submit" 
            className="btn btn-primary btn-block enter-btn"
-           disabled={!isValid || isSubmitting}
+           disabled={isSubmitting}
            >S'inscrire</button>
         </div>
         <div className="d-flex">
