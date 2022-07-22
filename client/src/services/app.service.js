@@ -17,11 +17,12 @@ import { API_DOMMAINE } from "../utility/app.constant";
 export const post_service= async (data)=>{
       let requestStatus={};
       try {
-            let request=await AXIOS_BASE.post(data?.url,data?.data)
+            let request=await AXIOS_BASE.post(data?.url,data?.data,{headers:{"Content-Type":"multipart/form-data"}})
+           
               requestStatus={status:true,data:request?.data};
         } catch (error) {
             const {response:{status,data}}=error
-       console.log(data);
+      
             requestStatus = {status: false,data,code:status}
         }
          return requestStatus;

@@ -55,7 +55,7 @@ const Login = () => {
   return (
     <>
       {
-        errorMessage && <small className="mt-1 mb-3 text-center  text-danger d-block">{errorMessage}</small>
+        errorMessage && <small className="mt-1 mb-3 text-center bg-light p-2 text-danger d-block">{errorMessage}</small>
       }
       <h3 className=" text-left mb-3">Se connecter</h3>
       <form onSubmit={handleSubmit(onSubmit)}>

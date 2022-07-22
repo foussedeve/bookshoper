@@ -9,6 +9,14 @@ const backendRoutes = [
         permissions: [ROLES.admin],
         protected: true
 
+    },
+    {
+        pathName: '/nouveau-livre',
+        component: lazy(() => import('../../views/backend/add-books')),
+        layout: 'Backend',
+        permissions: [ROLES.admin],
+        protected: true
+
     }
 ]
 

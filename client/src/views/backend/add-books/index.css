@@ -1,0 +1,7 @@
+.card-h{
+ height: 650px !important;
+}
+
+.card-h input:focus{
+    color:white !important;
+}

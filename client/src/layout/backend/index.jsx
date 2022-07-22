@@ -144,7 +144,7 @@ const Backend = ({children}) => {
                 <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" >
                   <h6 className="p-3 mb-0">Actions</h6>
                   <div className="dropdown-divider"></div>
-                  <Link to="nouveau-livre" className="dropdown-item preview-item">
+                  <Link to="/nouveau-livre" className="dropdown-item preview-item">
                     <div className="preview-thumbnail">
                       <div className="preview-icon bg-dark rounded-circle">
                         <i className="mdi mdi-file-outline text-primary"></i>
