@@ -6,12 +6,13 @@ import useAuth from "../../../utility/hook/useAuth";
 import LoginFormValidationSchema from "../../../utility/form/LoginformValidationSchema";
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
+import Loading from "../../../components/loader/loading";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState();
 
-  const { user, signin } = useAuth()
-  const { register, handleSubmit, formState: { errors, isValid, isSubmitting } } = useForm({
+  const {signin } = useAuth()
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     mode: "onBlur",
     resolver: yupResolver(LoginFormValidationSchema)
   })
@@ -29,8 +30,10 @@ const Login = () => {
             break;
           case 500:
             setErrorMessage("Le server est indisponible,Veuillez contacter l'administrateur.")
+            break;
           case 404:
             setErrorMessage("Le server introuvable")
+            break;
           default:
             break;
         }
@@ -47,9 +50,11 @@ const Login = () => {
 
 
   }
-  console.log(session.get("USER_SESSION"));
+  if(isSubmitting){
+    return <Loading/>
+  }
+ 
   if (session.get("USER_SESSION").data) {
-    //session.remove("USER_SESSION")
     return <Navigate to="/dashboard"  />;
   }
   return (
@@ -73,7 +78,7 @@ const Login = () => {
         <div className="form-group">
           <label>Mot de passe</label>
           <input
-            type="text"
+            type="password"
             className="form-control p_input"
             {...register("password")}
           />
@@ -97,7 +102,7 @@ const Login = () => {
           <button
             type="submit"
             className="btn btn-primary btn-block enter-btn"
-            disabled={!isValid || isSubmitting}
+            disabled={isSubmitting}
           >Connexion</button>
         </div>
         <div className="d-flex">

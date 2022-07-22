@@ -133,7 +133,7 @@ const Backend = ({children}) => {
             <ul className="navbar-nav w-100">
               <li className="nav-item w-100">
                 <form className="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                  <input type="text" className="form-control" placeholder="Search products"/>
+                  <input type="text" className="form-control" placeholder="Recherche livres"/>
                 </form>
               </li>
             </ul>
@@ -162,11 +162,11 @@ const Backend = ({children}) => {
                       </div>
                     </div>
                     <div className="preview-item-content">
-                      <p className="preview-subject ellipsis mb-1">UI Development</p>
+                      <p className="preview-subject ellipsis mb-1">Nouvel abonné</p>
                     </div>
                   </a>
                   <div className="dropdown-divider"></div>
-                  <a className="dropdown-item preview-item">
+                  {/* <a className="dropdown-item preview-item">
                     <div className="preview-thumbnail">
                       <div className="preview-icon bg-dark rounded-circle">
                         <i className="mdi mdi-layers text-danger"></i>
@@ -175,9 +175,9 @@ const Backend = ({children}) => {
                     <div className="preview-item-content">
                       <p className="preview-subject ellipsis mb-1">Software Testing</p>
                     </div>
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <p className="p-3 mb-0 text-center">See all projects</p>
+                  </a> */}
+                  {/* <div className="dropdown-divider"></div>
+                  <p className="p-3 mb-0 text-center">See all projects</p> */}
                 </div>
               </li>
               {/* create end -------------------------------------------------------*/}
